@@ -51,6 +51,11 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
                 border: Border.all(color: Colors.grey),
               ),
+              child: Column(
+                children: [
+                  Row(children: [Text("utuuyuy")]),
+                ],
+              ),
             ),
           ),
         ],
