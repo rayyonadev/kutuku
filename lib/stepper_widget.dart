@@ -5,6 +5,18 @@ class StepperWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //  TextButton(
+      //         onPressed: () async {
+      //           try{
+      //          final SharedPreferences prefs = await SharedPreferences.getInstance();
+      //          prefs.setString("username",controllerUsername.text);
+      //          prefs.setString("email",controllerEmail.text);
+      //            prefs.setString("password",controllerPassword.text);
+      //            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Ma'lumot saqlandi") ));
+      //           }cetch(e){
+      //             print("e");
+      //           }
+      //         },
       //----List ------ Grid----- Page -----Viewlar farqi !
       //-------ListView------
       //Elementlar ustma-ust joylashadi.
