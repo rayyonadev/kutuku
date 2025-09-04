@@ -1,4 +1,6 @@
+import 'package:birinchidars/login_account.dart';
 import "package:flutter/material.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key});
@@ -7,6 +9,10 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  TextEditingController controllerUsername = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPassword = TextEditingController();
+  String savePassword = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,9 +70,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               color: Colors.indigo,
               borderRadius: BorderRadius.circular(25),
             ),
-            child: Text(
-              "Create Account",
-              style: TextStyle(fontSize: 17, color: Colors.white),
+            child: TextButton(
+              onPressed: () async {
+                SharedPreferences pre = await SharedPreferences.getInstance();
+                pre.setString("password", controllerPassword.text);
+              },
+              child: Text(
+                "Create Account",
+                style: TextStyle(fontSize: 17, color: Colors.white),
+              ),
             ),
           ),
           SizedBox(height: 14),
@@ -99,9 +111,21 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               borderRadius: BorderRadius.circular(25),
               border: Border.all(color: Colors.grey),
             ),
-            child: Text(
-              "Sign Up with Facebook",
-              style: TextStyle(fontSize: 17, color: Colors.black),
+            child: ElevatedButton(
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (ctx) {
+                      return LoginAccount();
+                    },
+                  ),
+                );
+              },
+              child: Text(
+                "Sign Up with Facebook",
+                style: TextStyle(fontSize: 17, color: Colors.black),
+              ),
             ),
           ),
         ],
