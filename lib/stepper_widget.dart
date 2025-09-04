@@ -1,76 +1,51 @@
 import "package:flutter/material.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
-class StepperWidget extends StatelessWidget {
-  StepperWidget({super.key});
+class StepperWidget extends StatefulWidget {
+  @override
+  _StepperWidgetState createState() => _StepperWidgetState();
+}
+
+class _StepperWidgetState extends State<StepperWidget> {
+  String username = 'DefaultUser';
+  @override
+  void initState() {
+    super.initState();
+    loadUsername();
+  }
+
+  Future<void> loadUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('username') ?? 'DefaultUser';
+    });
+  }
+
+  Future<void> saveUsername(String newUsername) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', newUsername);
+    setState(() {
+      username = newUsername;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //  TextButton(
-      //         onPressed: () async {
-      //           try{
-      //          final SharedPreferences prefs = await SharedPreferences.getInstance();
-      //          prefs.setString("username",controllerUsername.text);
-      //          prefs.setString("email",controllerEmail.text);
-      //            prefs.setString("password",controllerPassword.text);
-      //            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Ma'lumot saqlandi") ));
-      //           }cetch(e){
-      //             print("e");
-      //           }
-      //         },
-      //----List ------ Grid----- Page -----Viewlar farqi !
-      //-------ListView------
-      //Elementlar ustma-ust joylashadi.
-      //------GirdView------
-      //Xuddi ListView, lekin har bir qatorda bir nechta ustun bo‘ladi.
-      //------PageView-----
-      //Scroll qilganda butun sahifa almashadi (swipe).
-      //-------------------------------------------------------------
-      //GridView.count
-      //Statik (aniq) elementlar uchun ishlatiladi.
-      //Siz nechta ustun (crossAxisCount) bo‘lishini oldindan belgilaysiz.
-      //Barcha elementlar ro‘yxatda bor va birdaniga yaratiladi.
-      //GridView.builder
-      //Siz itemCount va itemBuilder orqali elementlarni bosqichma-bosqich yaratasiz.
-      //    ListView(
-      //     children: [
-      //     ListTile(title: Text('Element 1')),
-      //     ListTile(title: Text('Element 2')),
-      //     ListTile(title: Text('Element 3')),
-      //   ],
-      // )
-      //Elementlar ketma-ket ro‘yxatda joylashadi,
-      //Scrolling turi Oddiy skroll (pastga-yuqoriga)
-      // ListView.builder(
-      //   itemCount: 5,
-      //    itemBuilder: (context, index) {
-      //     return ListTile(
-      //       title: Text('Element ${index + 1}'),
-      //     );
-      //   },
-      // )
-      //
-      //  PageView(
-      //   children: <Widget>[
-      //     Container(color: Colors.red),
-      //     Container(color: Colors.green),
-      //     Container(color: Colors.blue),
-      //   ],
-      // )
-      //Har bir sahifa butun ekranni egallaydi,
-      //Scrolling turi Sahifalar o‘rtasida "sahifa-almashtirish"
-
-      // PageView.builder(
-      //   itemCount: 5,
-      //    itemBuilder: (context, index) {
-      //     return Center(
-      //       child: Text(
-      //         'Sahifa $index',
-      //         style: TextStyle(fontSize: 32),
-      //       ),
-      //     );
-      //   }
-      // )
-      drawer: Drawer(child: DrawerHeader(child: Text("data"))),
+      appBar: AppBar(title: Text('SharedPreferences Misol')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Username: $username'),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => saveUsername('Ali'),
+              child: Text('Ismni Saqlash'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
