@@ -12,7 +12,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   TextEditingController controllerUsername = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
-  String savePassword = "";
+  String savePassword = "12345";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +32,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           Text("Username", style: TextStyle(fontSize: 17, color: Colors.black)),
           SizedBox(height: 7),
           TextField(
+            controller: controllerUsername,
             decoration: InputDecoration(
               labelText: "Create your username",
               border: OutlineInputBorder(),
@@ -45,6 +46,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           ),
           SizedBox(height: 7),
           TextField(
+            controller: controllerEmail,
             decoration: InputDecoration(
               labelText: "Enter your email or phone number",
               border: OutlineInputBorder(),
@@ -55,6 +57,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           Text("Password", style: TextStyle(fontSize: 17, color: Colors.black)),
           SizedBox(height: 7),
           TextField(
+            controller: controllerPassword,
             decoration: InputDecoration(
               labelText: "Create your password",
               border: OutlineInputBorder(),
@@ -62,19 +65,31 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             ),
           ),
           SizedBox(height: 40),
-          Container(
-            padding: EdgeInsets.only(left: 90, top: 13),
-            width: 300,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.indigo,
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: TextButton(
-              onPressed: () async {
-                SharedPreferences pre = await SharedPreferences.getInstance();
-                pre.setString("password", controllerPassword.text);
-              },
+          GestureDetector(
+            onTap: () async {
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              preferences.setString("username", controllerUsername.text);
+              preferences.setString("email", controllerEmail.text);
+              preferences.setString("password", controllerPassword.text);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (ctx) {
+                    return LoginAccount();
+                  },
+                ),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.only(left: 90, top: 13),
+              width: 300,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.indigo,
+                borderRadius: BorderRadius.circular(25),
+              ),
               child: Text(
                 "Create Account",
                 style: TextStyle(fontSize: 17, color: Colors.white),
@@ -111,21 +126,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               borderRadius: BorderRadius.circular(25),
               border: Border.all(color: Colors.grey),
             ),
-            child: ElevatedButton(
-              onPressed: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (ctx) {
-                      return LoginAccount();
-                    },
-                  ),
-                );
-              },
-              child: Text(
-                "Sign Up with Facebook",
-                style: TextStyle(fontSize: 17, color: Colors.black),
-              ),
+            child: Text(
+              "Sign Up with Facebook",
+              style: TextStyle(fontSize: 17, color: Colors.black),
             ),
           ),
         ],

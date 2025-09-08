@@ -1,4 +1,6 @@
+import "package:birinchidars/home.dart";
 import "package:flutter/material.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 class LoginAccount extends StatefulWidget {
   const LoginAccount({super.key});
@@ -7,6 +9,9 @@ class LoginAccount extends StatefulWidget {
 }
 
 class _LoginAccountState extends State<LoginAccount> {
+  TextEditingController controllerUsername = TextEditingController();
+  TextEditingController controllerPassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +36,7 @@ class _LoginAccountState extends State<LoginAccount> {
             ),
             SizedBox(height: 10),
             TextField(
+              controller: controllerUsername,
               decoration: InputDecoration(
                 labelText: "Enter your email or phone number",
                 border: OutlineInputBorder(),
@@ -44,6 +50,7 @@ class _LoginAccountState extends State<LoginAccount> {
             ),
             SizedBox(height: 10),
             TextField(
+              controller: controllerPassword,
               decoration: InputDecoration(
                 labelText: "Create your password",
                 border: OutlineInputBorder(),
@@ -56,17 +63,40 @@ class _LoginAccountState extends State<LoginAccount> {
               style: TextStyle(fontSize: 13, color: Colors.indigo),
             ),
             SizedBox(height: 30),
-            Container(
-              padding: EdgeInsets.only(left: 175, top: 15),
-              width: 400,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.indigo,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Text(
-                "Sign In",
-                style: TextStyle(fontSize: 15, color: Colors.white),
+            GestureDetector(
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+
+                if (controllerUsername.text == preferences.getString("email") &&
+                    controllerPassword.text ==
+                        preferences.getString("password")) {
+                  print(
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (ctx) {
+                          return Home();
+                        },
+                      ),
+                    ),
+                  );
+                } else {
+                  print("NOTOGRI");
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.only(left: 175, top: 15),
+                width: 400,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.indigo,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Text(
+                  "Sign In",
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
               ),
             ),
             SizedBox(height: 15),
