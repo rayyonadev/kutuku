@@ -7,6 +7,16 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  List<Color> colors = [
+    Colors.red,
+    Colors.black,
+    Colors.blue,
+    Colors.green,
+    Colors.yellow,
+    Colors.indigo,
+  ];
+  int colorIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +96,10 @@ class _ProductDetailState extends State<ProductDetail> {
                                   ),
                                   child: Text(
                                     "-",
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(width: 10),
@@ -135,48 +148,33 @@ class _ProductDetailState extends State<ProductDetail> {
                         "Color",
                         style: TextStyle(fontSize: 18, color: Colors.black),
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 10, left: 20),
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.redAccent,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
+                      Center(
+                        child: SizedBox(
+                          height: 35,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: colors.length,
+                            itemBuilder: (ctx, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  colorIndex = index;
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    color: colors[index],
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: colorIndex == index
+                                      ? Icon(Icons.check, color: Colors.white)
+                                      : null,
+                                ),
+                              );
+                            },
                           ),
-                          SizedBox(width: 15),
-                          Container(
-                            margin: EdgeInsets.only(top: 10, left: 20),
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                          ),
-                          SizedBox(width: 15),
-                          Container(
-                            margin: EdgeInsets.only(top: 10, left: 20),
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                          ),
-                          SizedBox(width: 15),
-                          Container(
-                            margin: EdgeInsets.only(top: 10, left: 20),
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.greenAccent,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                       SizedBox(height: 10),
                       Text(
