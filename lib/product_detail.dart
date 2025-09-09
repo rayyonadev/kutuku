@@ -1,3 +1,4 @@
+import "package:birinchidars/cart_screen.dart";
 import "package:flutter/material.dart";
 
 class ProductDetail extends StatefulWidget {
@@ -16,6 +17,7 @@ class _ProductDetailState extends State<ProductDetail> {
     Colors.indigo,
   ];
   int colorIndex = 0;
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -85,45 +87,23 @@ class _ProductDetailState extends State<ProductDetail> {
                             ),
                             child: Row(
                               children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: 10),
-                                  margin: EdgeInsets.only(top: 5, left: 5),
-                                  width: 27,
-                                  height: 27,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Text(
-                                    "-",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                    ),
-                                  ),
+                                IconButton(
+                                  onPressed: () {
+                                    if (count == 0) {
+                                    } else {
+                                      count--;
+                                      setState(() {});
+                                    }
+                                  },
+                                  icon: Icon(Icons.remove),
                                 ),
-                                SizedBox(width: 10),
-                                Text(
-                                  "3",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Container(
-                                  margin: EdgeInsets.only(top: 5, left: 5),
-                                  padding: EdgeInsets.only(left: 8),
-                                  width: 27,
-                                  height: 27,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Text(
-                                    "+",
-                                    style: TextStyle(fontSize: 15),
-                                  ),
+                                Text(count.toString()),
+                                IconButton(
+                                  onPressed: () {
+                                    count++;
+                                    setState(() {});
+                                  },
+                                  icon: Icon(Icons.add),
                                 ),
                               ],
                             ),
@@ -183,7 +163,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
 
                       Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industriy . Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a Read More ",
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industriy . Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a Read More",
                         style: TextStyle(fontSize: 15, color: Colors.grey),
                       ),
                       Row(
@@ -199,18 +179,30 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                           SizedBox(width: 150),
                           Container(
-                            padding: EdgeInsets.only(left: 55, top: 15),
+                            padding: EdgeInsets.only(left: 5, top: 5),
                             width: 200,
                             height: 50,
                             decoration: BoxDecoration(
                               color: Colors.indigo,
                               borderRadius: BorderRadius.circular(50),
                             ),
-                            child: Text(
-                              "Add to Cart",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (ctx) {
+                                      return CartScreen();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Add to Cart",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),

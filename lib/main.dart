@@ -1,4 +1,5 @@
 import "package:birinchidars/cache_screen.dart";
+import "package:birinchidars/cart_screen.dart";
 import "package:birinchidars/create_account_screen.dart";
 import "package:birinchidars/home.dart";
 import "package:birinchidars/product_detail.dart";
