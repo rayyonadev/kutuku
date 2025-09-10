@@ -1,3 +1,5 @@
+import "dart:ui_web";
+
 import "package:flutter/material.dart";
 
 class CartScreen extends StatefulWidget {
@@ -7,6 +9,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  bool _showContainer = false;
   bool value = false;
   bool value2 = false;
   bool value3 = false;
@@ -330,6 +333,30 @@ class _CartScreenState extends State<CartScreen> {
                 ],
               ),
             ],
+          ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _showContainer = !_showContainer;
+              });
+            },
+            child: Stack(
+              children: [
+                Positioned(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
