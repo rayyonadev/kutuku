@@ -24,7 +24,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
               SizedBox(width: 20),
               Text(
                 "Address",
-                style: TextStyle(fontSize: 20, color: Colors.black),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
               SizedBox(width: 350),
               Text(
